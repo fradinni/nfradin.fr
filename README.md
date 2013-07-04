@@ -1,5 +1,3 @@
-# Nicolas FRADIN - Website / Blog 
-------
 [nfradin.fr](http://nfradin.fr) is my personnal blog/website. The source code is free and can be re-used for your own personnal blog/website.
 
 ## Installation
