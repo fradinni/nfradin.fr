@@ -13,3 +13,5 @@ MONGO_URL=mongodb://<user>:<password>@<domain>:<port>/<dbName>
 ```
 
 4. Launch backend: ```foreman start```
+
+5. Navigate to: ```http://localhost:<PORT>```
