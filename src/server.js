@@ -17,10 +17,11 @@ requirejs.config({
 requirejs([
 	'http',
 	'express',
+	'express-roads',
 	'ejs',
 	'mongoose',
 	'os'
-], function (http, express, ejs, mongoose, os) {
+], function (http, express, expressRoads, ejs, mongoose, os) {
 
 	console.log("==========================================");
 	console.log("=");
@@ -53,18 +54,24 @@ requirejs([
 	app.engine('ejs', require('ejs').renderFile);
 	app.engine('html', require('ejs').renderFile);
 
-
-	// Default route
-	app.get('/', function(req, res) {
-		res.render('index.ejs', { title: 'The page!' });
-	});
-
-
 	//
-	// Start HTTP listening...
+	// Initialize Application routes
 	//
-	app.listen(app.get('port'), function(){
-		console.log("\n[Started] Backend is listening on : http://" + os.hostname().toLowerCase() + ":" + app.get('port'));
-	});
+	expressRoads.initialize(app, {
+		baseDir: __dirname,
+    routesDir: './routes',
+		debug: false
+	}, function() {
 
+		// Define public locations
+		app.use('/css', express.static(__dirname + '/css'));
+
+		//
+		// Start HTTP listening...
+		//
+		app.listen(app.get('port'), function(){
+			console.log("\n[Started] Backend is listening on : http://" + os.hostname().toLowerCase() + ":" + app.get('port'));
+		});
+
+	});
 });

@@ -3,8 +3,10 @@
   "version": "0.0.1",
   
   "dependencies": {
+    "amdefine": "0.0.5",
     "requirejs": "2.1.6",
     "express": "3.3.x",
+    "express-roads": "0.0.2",
     "ejs": "0.8.4",
     "consolidate": "0.9.x",
     "mongoose": "3.6.x"
