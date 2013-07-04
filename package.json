@@ -1,0 +1,25 @@
+{
+  "name": "nfradin.fr",
+  "version": "0.0.1",
+  
+  "dependencies": {
+    "requirejs": "2.1.6",
+    "express": "3.3.x",
+    "ejs": "0.8.4",
+    "consolidate": "0.9.x",
+    "mongoose": "3.6.x"
+  },
+  
+  "devDependencies": {
+  	
+  },
+  
+  "scripts" : {
+    
+  },
+
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  }
+}
