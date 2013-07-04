@@ -3,16 +3,64 @@ if (typeof define !== 'function') {
 }
 define(function(require) {
 
+	//
+	// Main Routes ----------------------------------------------------
+	//
+
+
+	/**
+	* Index route
+	*/
 	var index = function(req, res) {
-		res.render('layout.ejs', {title: "nfradin.fr"});
+		res.render('index.ejs');
 	};
 
-	return [
-		{path: '/', method: "GET", fn: index}
-	];
-    //var dep = require('dependency');
 
-    //The value returned from the function is
-    //used as the module export visible to Node.
-    //return function () {};
+
+
+
+	//
+	// Authentication Routes ----------------------------------------------------
+	//
+
+
+	/**
+	* Login route
+	*/
+	var login = function(req, res) {
+
+	};
+
+
+	/**
+	* Logout route
+	*/
+	var logout = function(req, res) {
+
+	};
+
+
+	/**
+	* Register route
+	*/
+	var register = function(req, res) {
+
+	};
+
+
+
+
+
+	//
+	// END ----------------------------------------------------------------------
+	//
+
+
+	/**
+	* Export routes
+	*/
+	return [
+		{ path: '/', method: "GET", fn: index }
+	];
+
 });
