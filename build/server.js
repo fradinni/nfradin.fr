@@ -92,7 +92,7 @@ requirejs([
 		app.use('/js', express.static(__dirname + '/www/js'));
 
 		// Serve compiled_templates as public templates directory for client
-		app.use('/templates', express.static(__dirname + '/www/templates_compiled'));
+		//app.use('/templates', express.static(__dirname + '/www/templates_compiled'));
 		app.use('/templates_compiled', express.static(__dirname + '/www/templates_compiled'));
 
 
