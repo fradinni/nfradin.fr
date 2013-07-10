@@ -1,15 +1,22 @@
 requirejs.config({
 	"baseUrl": "js/lib",
 	"paths": {
+		"requireLib": "require",
 		"app": "../app",
-		"templates": "../../templates"
+		"templates": "../../templates_compiled"
 	},
 	"shim": {
+		"underscore": {
+			exports: "_"
+		},
 		"jquery": {
 			exports: "$"
 		},
+		"ejs": {
+			exports: "ejs"
+		},
 		"backbone": {
-			deps: ["underscore", "jquery"],
+			deps: ["underscore", "jquery", "ejs"],
 			exports: 'Backbone'
 		},
 	}
