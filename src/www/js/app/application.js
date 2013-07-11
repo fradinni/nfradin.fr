@@ -12,13 +12,13 @@ define(['backbone', 'templates/index', 'templates/test'], function(Backbone, Ind
 			console.log('[Application] Started !');
 
 			// Bind click event on links to handle pushstate
-	    $(document.body).click('a', function(event) {
+	    	$('body').click('a', function(event) {
 				event.preventDefault();
 				event.stopPropagation();
-				self.navigate($(event.target).attr('href').substring(0),  {trigger:true})
+				self.navigate($(event.target).attr('href'),  {trigger:true})
 			});
 
-	    // Start Backbone History
+	    	// Start Backbone History
 			Backbone.history.start({
 				pushState: true,
 				hashChange: false,

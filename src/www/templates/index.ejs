@@ -1,8 +1,57 @@
 <% include layout/header %>
 
-	<h1>It works great !</h1>
-	<div id="content">
-		<a href="/test">Test</a>
+	<div class="page bg-montain">
+		<div class="header">
+			<a 	href="https://twitter.com/fradinni" 
+				class="twitter-follow-button" 
+				data-show-count="false" 
+				data-lang="fr" 
+				data-size="large">Follow @fradinni</a>
+		</div>
+		<div class="title">
+			<h1>Fradinni</h1>
+			<h2>(Nicolas FRADIN)</h2>
+			<div class="desc">
+				<p>Ingénieur Etude et Dev.</p>
+				<p>#Grails &nbsp;#JAVA &nbsp;#NodeJS &nbsp;#Backbone &nbsp;#PhoneGap &nbsp;#iOS &nbsp;#Android</p>
+				<p>Electronique: &nbsp;Arduino, &nbsp;Beaglebone, &nbsp;C, &nbsp;C++</p>
+			</div>
+		</div>
+
+		<ul class="ch-grid">
+		    <li>
+		        <div class="ch-item ch-img-1">
+		            <div class="ch-info">
+		                <h3>Blog</h3>
+		                <p>Articles sur le dev. et l'électronique</p>
+		            </div>
+		        </div>
+		    </li>
+		    <li>
+		        <div class="ch-item ch-img-2">
+		            <div class="ch-info">
+		                <h3>CV</h3>
+		                <p>Mon parcours</p>
+		            </div>
+		        </div>
+		    </li>
+		    <li>
+		        <div class="ch-item ch-img-3">
+		            <div class="ch-info">
+		                <h3>Github</h3>
+		                <p>Mes repositories</p>
+		            </div>
+		        </div>
+		    </li>
+		</ul>
+
+		<div class="footer">
+			<p>Nicolas FRADIN - 2013 - Source code is free and available on GitHub.</p>
+		</div>
 	</div>
+
+	<script type="text/javascript">
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+	</script>
 	
 <% include layout/footer %>

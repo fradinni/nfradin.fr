@@ -64,6 +64,8 @@ echo -------------------------
 mkdir build/www
 mkdir build/www/css
 mkdir build/www/js
+mkdir build/www/img
+mkdir build/www/fonts
 mkdir build/www/templates
 mkdir build/www/templates_compiled
 
@@ -72,6 +74,12 @@ cp -r src/www/css/* build/www/css
 
 echo - Copy js...
 mv src/www/app.build.js build/www/js/app.js
+
+echo - Copy images...
+cp -r src/www/img/* build/www/img
+
+echo - Copy fonts...
+cp -r src/www/fonts/* build/www/fonts
 
 echo - Copy raw templates...
 cp -r src/www/templates/* build/www/templates
