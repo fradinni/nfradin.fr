@@ -1,0 +1,285 @@
+.page.blog {
+	background: blue;
+}
+
+.banner {
+	width: 80%;
+	margin: auto;
+	margin-top: 50px;
+	padding: 20px 40px;
+}
+
+.banner-content {
+	background-color: rgba(0,0,0, 0.6);
+	height: 200px;
+}
+
+.content {
+	margin: auto;
+	margin-top: 50px;
+	padding: 20px 40px;
+	text-align: left;
+	width: 1024px;
+}
+
+.side-panel {
+	float: left;
+	padding: 20px 0px;
+	width: 200px;	
+	background-color: rgba(0,0,0, 0.5);
+}
+
+.side-panel ul {
+	padding: 20px 0px;
+	padding-bottom: 0;
+	font-family: "aleoregular";
+}
+
+.side-panel ul li {
+	font-family: "aleolight";
+	font-size: 14px;
+	padding: 10px;
+}
+
+.side-panel ul li a {
+	margin-left: 10px;
+}
+
+.avatar {
+	width: 160px;
+	margin: 0px 20px;
+	margin-bottom: 0;
+}
+
+.infos {
+	margin: 0px 10px;
+}
+
+.infos li {
+	font-family: "aleobold" !important;
+	padding: 2px 10px !important;
+}
+
+.category-name {
+	font-family: "aleobold" !important;
+	font-size: 18px !important;
+
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 10px;
+	font-size: 18px;
+	text-shadow: 1px 1px 5px rgba(0,0,0, 0.8);
+	background-color: rgba(0,0,0, 0.4);
+}
+
+.main-panel {
+	background: rgba(0, 0, 0, 0.4);
+	margin-left: 240px;
+	padding: 20px 40px;
+}
+
+
+
+/* -------------- */
+
+
+.post {
+	position: relative;
+	/*background-color: rgba(255, 255, 255, 1);*/
+	background-color: rgba(0, 0, 0, 0.2);
+	margin: 20px 0px;
+	border: 1px solid black;
+	margin-bottom: 40px;
+}
+
+.post-cover {
+	width: 702px;
+	height: 256px;
+	/*border-bottom: 1px solid black; */
+}
+
+.post-header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 5px 10px;
+	height: 30px;
+	line-height: 30px;
+	background: rgba(0,0,0, 0.6);
+}
+
+.ribbon-blue {
+	background: url('/img/ribbon-blue.png');
+}
+
+.ribbon-green {
+	background: url('/img/ribbon-green.png');
+}
+
+.ribbon-red {
+	background: url('/img/ribbon-red.png');
+}
+
+.ribbon-yellow {
+	background: url('/img/ribbon-yellow.png');
+}
+
+.post-category {
+	position: absolute;
+	top: 190px;
+	left: -58px;
+	height: 53px;
+	height: 73px;
+	width: 203px;
+	padding-left: 24px;
+
+	line-height: 50px;
+	text-align: center;
+	font-family: "aleobold";
+	font-size: 18px;
+	text-shadow: 1px 1px 5px black;
+}
+
+.post-header h2 {
+	/*color: #1bc4f1;*/
+}
+
+.post-preview {
+	padding: 20px;
+	line-height: 22px;
+	font-family: "aleoregular";
+	text-align: justify;
+	background-color: white;
+	color: black;
+}
+
+.read_next {
+	display: block;
+	color: #1bc4f1;
+	margin-top: 10px;
+}
+
+.scrollToTop {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	display: none;
+	width: 100px;
+	height: 100px;
+
+	background: url('/img/scroll.png');
+	opacity: 0.5;
+}
+
+.scrollToTop:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+/*
+.popular-posts {
+	display: inline-block;
+	margin: auto;
+	text-align: left;
+}
+
+.popular-posts li {
+	display: inline-block;
+	margin: 10px;
+	margin-top: 20px;
+}
+
+.popular-posts-wrapper {
+	background-color: rgba(0,0,0, 0.4);
+	margin-top: 20px;
+	padding: 20px;	
+	text-align: center;
+}
+
+.post {
+	margin: 20px 0px;
+	width: 260px;
+	border: 4px solid #ccc;
+}
+
+.post-image {
+	background: white url('/img/nodejs-logo.png');
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 160px;
+	border-bottom: 4px solid #efefef;
+}
+
+.post-preview {
+	background-color: white;
+	padding: 10px;
+	overflow: hidden;
+	color: black;
+	font-family: "aleolight"
+	overflow: hidden;
+}
+
+.post-preview .post-title {
+	font-family: "aleobold";
+	display: block;
+}
+
+.post-preview p {
+	font-family: "aleolight";
+	margin: 10px 0px;
+	text-align: justify;
+	overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;  number of lines to show 
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+
+
+.post {
+	margin-top: 20px;
+	box-shadow: 3px 3px 10px rgba(0,0,0, 0.6);
+}
+
+.post-header {
+	padding: 10px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+	padding-left: 50px;
+	font-size: 16px;
+}
+
+.elec-icon {
+	background: rgba(0,0,0, 0.4) url('/img/elec-icon.png');
+	background-repeat: no-repeat;
+	background-position: 10px 10px;
+	background-size: 30px 30px;
+}
+
+.post-header .title {
+	font-family: "aleobold";
+}
+
+.post-header .date {
+	font-family: "aleolightitalic";
+	float: right;
+}
+
+.post-content {
+	background-color: rgba(255,255,255, 0.6);
+	color: black;
+	min-height: 250px;
+}
+
+.post-footer {
+	background: rgba(0,0,0, 0.2);
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+	padding: 0px 20px;
+}
+*/

@@ -95,6 +95,15 @@
 	Styles
 */
 
+body {
+    background: black;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
 h1 {
 	font-family: "aleobold";
 	font-size: 80px;
@@ -107,20 +116,35 @@ h2 {
 	text-shadow: 8px 5px 0px rgba(0,0,0, 0.3);
 }
 
+.site-title {
+	line-height: 50px;
+	font-family: "aleobold";
+	font-size: 28px;
+	text-shadow: 8px 5px 0px rgba(0,0,0, 0.3);
+	color: white;
+	text-decoration: none;
+	margin-left: 20px;
+}
+
 .twitter-follow-button {
 	float: right;
 	margin-top: 10px;
-	margin-right: 10px;
+	margin-right: -15px;
 }
 
-.header {
+header {
 	text-align: left;
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	width: 100%;
 	height: 50px;
 	background-color: rgba(0,0,0, 0.2);
+    z-index: 100;
+}
+
+header h3 {
+	margin-left: 20px;
 }
 
 .title {
@@ -146,10 +170,16 @@ h2 {
 	top: 0px;
 	left: 0px;
 	right: 0px;
+	background-color: #000;
+	display: none;
+
+	min-width: 920px;
 	min-height: 100%;
+
+    overflow-x: hidden;
 }
 
-.footer {
+footer {
 	font-family: "aleolightitalic";
 	font-size: 11px;
 	text-align: right;
@@ -161,17 +191,33 @@ h2 {
 	width: 100%;
 }
 
+footer a {
+	color: white;
+	text-decoration: none;
+}
+
 .footer p {
-	margin-right: 10px;
+	margin-right: 20px;
 }
 
 .bg-blue {
-	background-color: #2980b9;
+	/*background-color: #2980b9;*/
+    background-color: #045265;
 }
 
 .bg-montain {
 	background-image: url('/img/background-city.jpg');
 	background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.bg-stripes {
+background:
+linear-gradient(45deg, #0e6377 45px, transparent 45px)64px 64px,
+linear-gradient(45deg, #0e6377 45px, transparent 45px,transparent 91px, #0c596b 91px, #0c596b 135px, transparent 135px),
+linear-gradient(-45deg, #0e6377 23px, transparent 23px, transparent 68px,#0e6377 68px,#0e6377 113px,transparent 113px,transparent 158px,#0e6377 158px);
+background-color:#0c596b;
+background-size: 128px 128px;
 }
 
 

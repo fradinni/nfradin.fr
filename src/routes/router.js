@@ -15,11 +15,13 @@ define(function(require) {
 		res.render('index.ejs');
 	};
 
-	var test = function(req, res) {
-		res.render('test.ejs');
+	var blog = function(req, res) {
+		res.render('blog.ejs');
 	}
 
-
+	var admin = function(req, res) {
+		res.render('admin.ejs');
+	}
 
 
 
@@ -65,7 +67,7 @@ define(function(require) {
 	*/
 	return [
 		{ path: '/', method: "GET", fn: index },
-		{ path: '/test', method: "GET", fn: test }
+		{ path: '/blog', method: "GET", fn: blog }
 	];
 
 });
