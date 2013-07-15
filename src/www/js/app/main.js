@@ -6,7 +6,6 @@ define(["backbone", "app/application"], function(Backbone, Application) {
 
 		// Create app and start it
 		var app = new Application();
-		//app.initialize();
 		app.start();
 		
 	});

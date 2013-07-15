@@ -42,9 +42,23 @@ requirejs([
 	// };
 
 
+	var cookieSecret = '$=[Fradinni$ecret)-!';
+
 	// Create new application
 	var app = express();
 	app.set('port', process.env.PORT || 8080);
+	app.use(express.compress());
+	app.use(express.cookieParser(cookieSecret));
+	app.use(express.cookieSession({
+		key: "fradinni.sid",
+		secret: cookieSecret,
+		cookie: {
+			path: '/', 
+			httpOnly: true, 
+			maxAge: null
+		}
+	}));
+	app.use(express.bodyParser());
 	app.use(app.routes);
 
 
@@ -82,6 +96,8 @@ requirejs([
 	expressRoads.initialize(app, {
 		baseDir: __dirname,
 		routesDir: './routes',
+		useAPI: true,
+   		apiBaseDir: './routes/api',
 		debug: false
 	}, function() {
 
@@ -92,6 +108,7 @@ requirejs([
 		app.use('/js', express.static(__dirname + '/www/js'));
 		app.use('/img', express.static(__dirname + '/www/img'));
 		app.use('/fonts', express.static(__dirname + '/www/fonts'));
+		app.use('/ckeditor', express.static(__dirname + '/www/ckeditor'));
 
 		// Serve compiled_templates as public templates directory for client
 		app.use('/templates_compiled', express.static(__dirname + '/www/templates_compiled'));

@@ -9,15 +9,16 @@ define(function(require) {
 	* DB User Model
 	*/
 	var User = new mongoose.Schema({
-		username: String,
+		username: { type:String, unique: true, index: true },
 		firstname: String,
 		lastname: String,
-		email: String,
+		email: { type:String, unique: true, index: true },
 		password: String,
 
 		activated: {type: Boolean, defaults: false},
 		locked: {type: Boolean, default: false},
 		removed: {type: Boolean, default: false},
+		roles: [String],
 
 		dateCreated: {type: Date, default: Date.now},
 		lastUpdated: {type: Date, default: Date.now},

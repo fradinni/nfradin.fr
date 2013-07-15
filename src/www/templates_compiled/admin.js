@@ -7,7 +7,7 @@ escape = escape || function (html){
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 };
-var __stack = { lineno: 1, input: "<% include layout/header %>\n\tAdmin\n<% include layout/footer %>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/admin.ejs" };
+var __stack = { lineno: 1, input: "<% include layout/blog_header %>\n\n\t<h2>Administration</h2>\n\t<br />\n\t<a href=\"/admin_users\">-> Blog users</a>\n\t<br />\n\t<a href=\"/admin\">-> Blog categories</a>\n\t<br />\n\t<a href=\"/admin\">-> Blog articles</a>\n\t<br />\n\t<br />\n\t<a href=\"/logout\">-> Logout</a>\n\n<% include layout/blog_footer %>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/admin.ejs" };
 function rethrow(err, str, filename, lineno){
   var lines = str.split('\n')
     , start = Math.max(lineno - 3, 0)
@@ -35,9 +35,13 @@ try {
 var buf = [];
 with (locals || {}) { (function(){ 
  buf.push('' + (function(){var buf = [];
- buf.push('<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8">\n    <title>nfradin.fr</title>\n    <meta name="description" content="Site web / Blog perso.">\n    <meta name="author" content="Nicolas FRADIN">\n\n    <!-- HTML5 shim, for IE6-8 support of HTML elements -->\n    <!--[if lt IE 9]>\n      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\n    <![endif]-->\n\n\n    <!-- Scripts -->\n    <script id="twitter-wjs" src="http://platform.twitter.com/widgets.js"></script>\n    <script type="text/javascript" src="js/lib/require.js" data-main="js/app.js"></script>\n    <!-- -->\n\n\n    <!-- styles -->\n    <link rel="stylesheet" href="css/reset.css">\n    <link rel="stylesheet" href="css/styles.css">\n    <link rel="stylesheet" href="css/blog.css">\n    <!-- -->\n  </head>\n  <body>\n');
-return buf.join('');})() + '\n	Admin\n' + (function(){var buf = [];
+ buf.push('' + (function(){var buf = [];
+ buf.push('<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8">\n    <title>nfradin.fr</title>\n    <meta name="description" content="Site web / Blog perso.">\n    <meta name="author" content="Nicolas FRADIN">\n\n    <!-- HTML5 shim, for IE6-8 support of HTML elements -->\n    <!--[if lt IE 9]>\n      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\n    <![endif]-->\n\n\n    <!-- Scripts -->\n    <script id="twitter-wjs" src="http://platform.twitter.com/widgets.js"></script>\n    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>\n    <script type="text/javascript" src="/js/lib/require.js" data-main="js/app.js"></script>\n    <!-- -->\n\n\n    <!-- styles -->\n    <link rel="stylesheet" href="/css/reset.css">\n    <link rel="stylesheet" href="/css/styles.css">\n    <link rel="stylesheet" href="/css/blog.css">\n    <link rel="stylesheet" href="/css/editor.css">\n    <!-- -->\n  </head>\n  <body>\n');
+return buf.join('');})() + '\n\n	<div class="page bg-stripes">\n		<!-- Page Header -->\n		<header>			\n			<a href="/blog" class="site-title">Fradinni\'s Blog</a>\n			<a 	href="https://twitter.com/fradinni" \n				class="twitter-follow-button" \n				data-show-count="true" \n				data-lang="en" \n				data-size="large">Follow @fradinni</a>\n		</header>\n\n		<!-- Page content -->\n		<div class="content">\n\n			<div class="side-panel">\n				<img src="/img/avatar.jpg" class="avatar"></img>\n				<ul class="infos">\n					<li>Nicolas FRADIN</li>\n					<li>26 ans</li>\n				</ul>\n				<ul class="links">\n					<li class="category-name">Liens</li>\n					<li><a href="/">Site web</a></li>\n					<li><a href="/cv">Mon cv</a></li>\n				</ul>\n				<ul class="categories">\n					<li class="category-name">Categories</li>\n					<li><a href="#">Divers</a></li>\n					<li><a href="#">Electronique</a></li>\n					<li><a href="#">Developpement</a></li>\n					<li><a href="#">Jeux video</a></li>\n				</ul>\n			</div>\n\n			<div class="main-panel">');
+return buf.join('');})() + '\n\n	<h2>Administration</h2>\n	<br />\n	<a href="/admin_users">-> Blog users</a>\n	<br />\n	<a href="/admin">-> Blog categories</a>\n	<br />\n	<a href="/admin">-> Blog articles</a>\n	<br />\n	<br />\n	<a href="/logout">-> Logout</a>\n\n' + (function(){var buf = [];
+ buf.push('</div>\n	</div>\n\n' + (function(){var buf = [];
  buf.push('	</body>\n</html>');
+return buf.join('');})() + '');
 return buf.join('');})() + ''); })();
 } 
 return buf.join('');

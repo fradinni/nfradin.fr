@@ -1,0 +1,31 @@
+<% include layout/blog_header %>
+	<a href="/admin">< Back</a>
+	<br /><br />
+	<h2>Blog users</h2>
+	<br />
+	<ul class="users-list"></ul>
+
+	<br />
+	<br />
+	
+	<div class="new-user">
+		<h3>New user</h3>
+		<br />
+		<form method="POST" action="/api/users">
+			<label for="username">Username</label>
+			<input type="text" name="username" id="username" />
+			<br />
+			<label for="email">Email</label>
+			<input type="text" name="email" id="email" />
+			<br />
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" />
+			<br />
+			<label for="roles">Roles</label>
+			<input type="text" name="roles" id="roles" value="USER" />
+			<br />
+			<input type="submit" value="Create" />
+		</form>
+	</div>
+
+<% include layout/blog_footer %>

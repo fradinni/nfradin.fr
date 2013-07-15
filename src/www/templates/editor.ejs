@@ -1,0 +1,32 @@
+<% include layout/header %>
+	<div class="editor-page bg-stripes">
+		<!-- Page Header -->
+		<header>			
+			<a href="/blog" class="site-title">Article Editor</a>
+			<a 	href="https://twitter.com/fradinni" 
+				class="twitter-follow-button" 
+				data-show-count="true" 
+				data-lang="en" 
+				data-size="large">Follow @fradinni</a>
+		</header>
+
+		<!-- Page content -->
+		<div class="content editor">
+			<!-- <textarea name="editor">&lt;p&gt;Initial value.&lt;/p&gt;</textarea> -->
+			<div id="editor" contenteditable="true" class="editable">
+			    <%- article.text %>
+			</div>
+			<script>
+			    // Turn off automatic editor creation first.
+			    CKEDITOR.editorConfig = function( config ) {
+    				config.language = 'fr';
+    				config.uiColor = '#AADC6E';
+				};
+			</script>
+		</div>
+
+		<div class="save">
+			<a href="/editor?a=new" onclick="alert(CKEDITOR.instances.editor.getData());">Save</a>
+		</div>
+	</div>
+<% include layout/footer %>
