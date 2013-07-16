@@ -7,7 +7,7 @@ escape = escape || function (html){
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 };
-var __stack = { lineno: 1, input: "<td width=\"150\"><%=model.get('username')%></td>\n<td><%=model.get('email')%></td>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/userItem.ejs" };
+var __stack = { lineno: 1, input: "<td width=\"150\"><%=model.get('name')%></td>\n<td><%=model.get('description')%></td>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/categoryItem.ejs" };
 function rethrow(err, str, filename, lineno){
   var lines = str.split('\n')
     , start = Math.max(lineno - 3, 0)
@@ -34,7 +34,7 @@ function rethrow(err, str, filename, lineno){
 try {
 var buf = [];
 with (locals || {}) { (function(){ 
- buf.push('<td width="150">', escape((__stack.lineno=1, model.get('username'))), '</td>\n<td>', escape((__stack.lineno=2, model.get('email'))), '</td>'); })();
+ buf.push('<td width="150">', escape((__stack.lineno=1, model.get('name'))), '</td>\n<td>', escape((__stack.lineno=2, model.get('description'))), '</td>'); })();
 } 
 return buf.join('');
 } catch (err) {

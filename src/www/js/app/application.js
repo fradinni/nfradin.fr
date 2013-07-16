@@ -1,16 +1,19 @@
 define([
 	'backbone',
 	'./views/UsersView',
+	'./views/CategoriesView',
 	'templates/index', 
 	'templates/blog', 
 	'templates/editor', 
 	'templates/admin',
-	'templates/admin_users'
-], function(Backbone, UsersView, IndexTpl, BlogTpl, EditorTpl, AdminTpl, AdminUsersTpl) {
+	'templates/admin_users',
+	'templates/admin_categories'
+], function(Backbone, UsersView, CategoriesView, IndexTpl, BlogTpl, EditorTpl, AdminTpl, AdminUsersTpl, AdminCategoriesTpl) {
 
 	var Application = Backbone.Router.extend({
 
 		routes: {
+			"admin_categories": "admin_categories",
 			"admin_users": "admin_users",
 			"admin": "admin",
 			"blog": "blog",
@@ -194,6 +197,25 @@ define([
 				});
 			}, this));
 			
+		},
+
+		admin_categories: function() {
+			console.log('[Router] -> admin categories');
+			this.withUser(_.bind(function(user) {
+				var tpl = $(AdminCategoriesTpl({user: user}));			
+				$('body').html(tpl);
+
+				var self = this;
+				$.get('/api/categories').done(function(data) {
+					var categoriesView = new CategoriesView({
+						el: ".categories-list",
+						collection: new Backbone.Collection(data)
+					});
+					categoriesView.render();
+					self.bindLinks();
+					$(".page").fadeIn();
+				});
+			}, this));
 		}
 
 	});

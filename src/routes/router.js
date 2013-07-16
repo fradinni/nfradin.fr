@@ -11,6 +11,7 @@ define(function(require) {
 		ObjectId = mongoose.Schema.Types.ObjectId,
 		Models = require('../db/models')(mongoose),
 		User = Models.User,
+		Category = Models.Category,
 		Article = Models.Article;
 
 
@@ -75,11 +76,24 @@ define(function(require) {
 		// Retrieve blog users
 		User.find().sort('username').exec(function(err, users) {
 			if(err) {
-				res.send(500, err);
+				res.send(500, {error: 'Unable to retrieve users !'});
 			} else{
 				res.render('admin_users.ejs', {user: req.user, users: users});
 			} 
 		});
+	}
+
+
+	var adminCategories = function(req, res) {
+
+		Category.find({}).sort('name').exec(function(err, categories) {
+			if(err) {
+				res.send(500, {error: 'Unable to retrieve categories !'});
+			} else {
+				res.render('admin_categories.ejs', {user: req.user, categories: categories});
+			}
+		});
+
 	}
 
 
@@ -120,10 +134,13 @@ define(function(require) {
 	return [
 		{ path: '/', method: "GET", fn: index },
 		{ path: '/blog', method: "GET", fn: blog },
-		{ path: '/admin', method: "GET", fn: admin, auth: true },
-		{ path: '/admin_users', method: "GET", fn: adminUsers, auth: true },
+
 		{ path: '/login', method: "GET", fn: login },
 		{ path: '/logout', method: "GET", fn: logout },
+		
+		{ path: '/admin', method: "GET", fn: admin, auth: true },
+		{ path: '/admin_users', method: "GET", fn: adminUsers, auth: true },
+		{ path: '/admin_categories', method: "GET", fn: adminCategories, auth: true },
 
 		{ path: '/editor', method: "GET", fn: editor, auth: true },
 	];
