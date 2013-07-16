@@ -147,6 +147,7 @@ header {
 	height: 50px;
 	background-color: rgba(0,0,0, 0.2);
     z-index: 100;
+    min-width: 1024px;
 }
 
 header h3 {
@@ -225,6 +226,57 @@ footer a {
     background-color:#0c596b;
     background-size: 128px 128px;
 }
+
+.google-signin-red {
+    display: inline-block;
+    width: 150px;
+    height: 33px;
+    position: absolute;
+    top: 8px;
+    right: 280px;
+    background: url('/img/google-signin-red.png');
+    background-size: 150px 33px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.logout {
+    display: inline-block;
+    width: 150px;
+    height: 33px;
+    position: absolute;
+    top: 8px;
+    right: 280px;
+    background: url('/img/google-button-red.png');
+    background-size: 150px 33px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    font-size: 10px;
+    line-height: 33px;
+    text-indent: 32px;
+}
+
+.button-blue {
+    display: inline-block;
+    width: 150px;
+    height: 33px;
+    position: absolute;
+    top: 8px;
+    left: 220px;
+    background: url('/img/button-blue.png');
+    background-size: 100px 33px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    font-size: 10px;
+    line-height: 33px;
+    text-align: center;
+}
+
+
+
+
 
 
 /*** -------------------------------------- */

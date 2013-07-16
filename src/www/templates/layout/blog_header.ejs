@@ -4,6 +4,14 @@
 		<!-- Page Header -->
 		<header>			
 			<a href="/blog" class="site-title">Fradinni's Blog</a>
+			<% if(typeof user != "undefined" && user) { %>
+				<a href="/logout" data-role="extern" class="logout"><%= user.username %>&nbsp;&nbsp;|&nbsp;&nbsp;Logout</a>
+				<% if(user.roles[0] == 'ADMIN') { %>
+					<a href="/admin" data-role="extern" class="button-blue">Admin</a>
+				<% } %>
+			<% } else { %>
+				<a href="/auth/google" class="google-signin-red" data-role="extern"></a>
+			<% } %>
 			<a 	href="https://twitter.com/fradinni" 
 				class="twitter-follow-button" 
 				data-show-count="true" 

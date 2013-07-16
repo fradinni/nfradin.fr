@@ -30,7 +30,7 @@ define(function(require) {
 	* Blog route
 	*/
 	var blog = function(req, res) {
-		res.render('blog.ejs');
+		res.render('blog.ejs', {user: req.user});
 	}
 
 
@@ -63,7 +63,7 @@ define(function(require) {
 	* Display blog administration page
 	*/
 	var admin = function(req, res) {
-		res.render('admin.ejs');
+		res.render('admin.ejs', {user: req.user});
 	}
 
 
@@ -77,7 +77,7 @@ define(function(require) {
 			if(err) {
 				res.send(500, err);
 			} else{
-				res.render('admin_users.ejs', {users: users});
+				res.render('admin_users.ejs', {user: req.user, users: users});
 			} 
 		});
 	}
@@ -93,14 +93,8 @@ define(function(require) {
 	* Login route
 	*/
 	var login = function(req, res) {
-
-		// Retrieve username and password
-		var username = req.param('username');
-		var password = req.param('password');
-
-		User.find()
-		.where('username').equals(username)
-		.where('password').equals(password)
+		req.logout();
+		res.redirect('/auth/google');
 	};
 
 
@@ -108,7 +102,8 @@ define(function(require) {
 	* Logout route
 	*/
 	var logout = function(req, res) {
-
+		req.logout();
+		res.redirect('/blog');
 	};
 
 
@@ -125,9 +120,12 @@ define(function(require) {
 	return [
 		{ path: '/', method: "GET", fn: index },
 		{ path: '/blog', method: "GET", fn: blog },
-		{ path: '/editor', method: "GET", fn: editor },
-		{ path: '/admin', method: "GET", fn: admin },
-		{ path: '/admin_users', method: "GET", fn: adminUsers }
+		{ path: '/admin', method: "GET", fn: admin, auth: true },
+		{ path: '/admin_users', method: "GET", fn: adminUsers, auth: true },
+		{ path: '/login', method: "GET", fn: login },
+		{ path: '/logout', method: "GET", fn: logout },
+
+		{ path: '/editor', method: "GET", fn: editor, auth: true },
 	];
 
 });

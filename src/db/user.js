@@ -14,8 +14,10 @@ define(function(require) {
 		lastname: String,
 		email: { type:String, unique: true, index: true },
 		password: String,
+		openId: String,
+		identifier: String,
 
-		activated: {type: Boolean, defaults: false},
+		activated: {type: Boolean, default: false},
 		locked: {type: Boolean, default: false},
 		removed: {type: Boolean, default: false},
 		roles: [String],

@@ -108,6 +108,13 @@ define(function(require) {
 
 	}
 
+	/**
+	* Return connected user
+	*/
+	var getConnectedUser = function(req, res) {
+		res.send(200, req.user);
+	}
+
 
 	/**
 	* Export routes
@@ -117,7 +124,8 @@ define(function(require) {
 		{ path: '/users/:id', method: "GET", fn: getUser },
 		{ path: '/users/:id', method: "DELETE", fn: removeUser },
 		{ path: '/users/:id', method: "PUT", fn: updateUser },
-		{ path: '/users', method: "POST", fn:  addUser }
+		{ path: '/users', method: "POST", fn:  addUser },
+		{ path: '/user', method: "GET", fn: getConnectedUser }
 
 	];
 });

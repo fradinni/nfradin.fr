@@ -21,10 +21,12 @@ requirejs([
 	'https',
 	'express',
 	'express-roads',
+	'passport',
+	'passport-google',
 	'ejs',
 	'mongoose',
 	'utils/EJSCompiler'
-], function (os, fs, http, https, express, expressRoads, ejs, mongoose, EJSCompiler) {
+], function (os, fs, http, https, express, expressRoads, passport, passportGoogle, ejs, mongoose, EJSCompiler) {
 
 	console.log("==========================================");
 	console.log("=");
@@ -49,6 +51,7 @@ requirejs([
 	app.set('port', process.env.PORT || 8080);
 	app.use(express.compress());
 	app.use(express.cookieParser(cookieSecret));
+	/*
 	app.use(express.cookieSession({
 		key: "fradinni.sid",
 		secret: cookieSecret,
@@ -58,8 +61,90 @@ requirejs([
 			maxAge: null
 		}
 	}));
+	*/
+	app.use(express.session({ 
+		key: 'fradinni.sid',
+		secret: cookieSecret 
+	}));
 	app.use(express.bodyParser());
+	app.use(passport.initialize());
+  	app.use(passport.session());
 	app.use(app.routes);
+
+
+	//
+	// Passport Config
+	//
+	var Models = require('./db/models')(mongoose);
+	var User = Models.User;
+	var GoogleStrategy = passportGoogle.Strategy;
+
+	passport.use(
+		new GoogleStrategy({
+	    	returnURL: 'http://localhost:8080/auth/google/return',
+	    	realm: 'http://localhost:8080'
+	  	},
+	  	function(identifier, profile, done) {
+
+	  		// Extract openID
+	  		var openId = identifier.substring(identifier.indexOf('id=')+3);
+
+	  		// Try to find user with current openId
+	  		User.findOne({openId: openId}, function(err, user) {
+	  			if(!err && !user) {
+
+	  				// Create new user
+	  				var email = profile.emails[0].value;
+	  				var username = email.substring(0, email.indexOf('@'));
+	  				user = new User({
+	  					username: username,
+	  					email: email,
+	  					openId: openId,
+	  					identifier: identifier,
+	  					roles: ['USER']
+	  				});
+
+	  				// If user is me, gimme all rights ;)
+	  				if(email == "fradinni@gmail.com") {
+	  					user.roles = ['ADMIN'];
+	  					user.activated = true;
+	  				}
+
+	  				// Save new user
+	  				user.save(function(saveErr) {
+	  					done(saveErr, user);
+	  				});
+
+	  			} else {
+	  				done(err, user);
+	  			}
+	  		});
+	  	}
+	));
+
+	passport.serializeUser(function(user, done) {
+  		done(null, user._id);
+	});
+
+	passport.deserializeUser(function(id, done) {
+  		User.findById(id, function(err, user) {
+    		done(err, user);
+  		});
+	});
+
+	// Redirect the user to Google for authentication.  When complete, Google
+	// will redirect the user back to the application at
+	//     /auth/google/return
+	app.get('/auth/google', passport.authenticate('google'));
+
+	// Google will redirect the user to this URL after authentication.  Finish
+	// the process by verifying the assertion.  If valid, the user will be
+	// logged in.  Otherwise, authentication has failed.
+	app.get('/auth/google/return', passport.authenticate('google'), function(req, res) {
+		res.redirect('/blog');
+	});
+
+	 // {successRedirect: '/blog',failureRedirect: '/auth/google' }
 
 
 	//
@@ -91,14 +176,35 @@ requirejs([
 
 
 	//
-	// Initialize Application routes
+	// Auth function used by Express Roads to check if user is authenticated
+	//
+	var authFunction = function(req, res, next) {
+		if(!req.user) {
+			return res.redirect('/blog');
+		} else {
+			if(req.url.indexOf('/admin') == 0) {
+				if(req.user.roles[0] == 'ADMIN') {
+					return next();
+				} else {
+					return res.redirect('/blog');
+				}
+			} else {
+				return next();
+			}
+		}
+	};
+
+
+	//
+	// Initialize Express Roads
 	//
 	expressRoads.initialize(app, {
 		baseDir: __dirname,
 		routesDir: './routes',
 		useAPI: true,
    		apiBaseDir: './routes/api',
-		debug: false
+		debug: false,
+		authFunction: authFunction
 	}, function() {
 
 		//
@@ -121,4 +227,6 @@ requirejs([
 		});
 
 	});
+
+
 });

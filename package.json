@@ -10,7 +10,9 @@
     "ejs": "0.8.4",    
     "consolidate": "0.9.x",
     "mongoose": "3.6.x",
-    "underscore": "1.5.x"
+    "underscore": "1.5.x",
+    "passport": "0.1.17",
+    "passport-google": "0.3.0"
   },
   
   "devDependencies": {

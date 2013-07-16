@@ -11,7 +11,7 @@ rm -Rf ./build
 # Create build dir
 mkdir build
 
-# Build layout header
+# Build layout headers
 echo - Build header template...
 file=src/www/templates/layout/header.ejs
 sed -i -e 's/src=.*data-main=.*"/src="js\/app.js"/' $file
@@ -62,10 +62,11 @@ echo Copy web app...
 echo -------------------------
 
 mkdir build/www
+mkdir build/www/ckeditor
 mkdir build/www/css
-mkdir build/www/js
-mkdir build/www/img
 mkdir build/www/fonts
+mkdir build/www/img
+mkdir build/www/js
 mkdir build/www/templates
 mkdir build/www/templates_compiled
 
@@ -74,6 +75,9 @@ cp -r src/www/css/* build/www/css
 
 echo - Copy js...
 mv src/www/app.build.js build/www/js/app.js
+
+echo - Copy ckeditor...
+cp -r src/www/ckeditor/* build/www/ckeditor
 
 echo - Copy images...
 cp -r src/www/img/* build/www/img

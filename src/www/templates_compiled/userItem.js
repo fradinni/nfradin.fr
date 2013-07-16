@@ -7,7 +7,7 @@ escape = escape || function (html){
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 };
-var __stack = { lineno: 1, input: "<%= model.get('username') %>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/userItem.ejs" };
+var __stack = { lineno: 1, input: "<%= model.get('username') + '&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' + model.get('email') %>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/userItem.ejs" };
 function rethrow(err, str, filename, lineno){
   var lines = str.split('\n')
     , start = Math.max(lineno - 3, 0)
@@ -34,7 +34,7 @@ function rethrow(err, str, filename, lineno){
 try {
 var buf = [];
 with (locals || {}) { (function(){ 
- buf.push('', escape((__stack.lineno=1,  model.get('username') )), ''); })();
+ buf.push('', escape((__stack.lineno=1,  model.get('username') + '&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' + model.get('email') )), ''); })();
 } 
 return buf.join('');
 } catch (err) {

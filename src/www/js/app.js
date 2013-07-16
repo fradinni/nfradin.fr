@@ -22,4 +22,5 @@ requirejs.config({
 	}
 });
 
+ApiURL = "http://localhost:8080/api";
 requirejs(["app/main"]);

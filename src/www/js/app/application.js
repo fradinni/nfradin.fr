@@ -26,7 +26,7 @@ define([
 			var self = this;
 			// Bind click event on links to handle pushstate
 	    	$('a').click(function(event) {
-				if(!$(event.currentTarget).hasClass('twitter-follow-button') && $(event.currentTarget).attr('link-role') != 'extern') {
+				if(!$(event.currentTarget).hasClass('twitter-follow-button') && $(event.currentTarget).attr('data-role') != 'extern') {
 					event.preventDefault();
 					event.stopPropagation();
 					self.navigate($(event.currentTarget).attr('href'),  {trigger:true});
@@ -42,6 +42,7 @@ define([
 
 			var silent = true;
 			if(document.location.href.indexOf('admin') != -1) silent = false;
+			if(document.location.href.indexOf('blog') != -1) silent = false;
 
 	    	// Start Backbone History
 			Backbone.history.start({
@@ -83,6 +84,22 @@ define([
 			});
 		},
 
+		withUser: function(callback) {
+			var app = this;
+			if(typeof this.user == 'undefined' || !this.user) {
+				$.get(ApiURL + '/user', function(data, status) {
+					if(status == "success" && data) {
+						app.user = data;
+						callback(data);
+					} else {
+						callback(null);
+					}
+				});
+			} else {
+				callback(app.user);
+			}
+		},
+
 
 		//
 		// Routes ------------------------------------------
@@ -107,10 +124,22 @@ define([
 		*/
 		blog: function(path) {
 			console.log("[Router] -> blog");
-			var tpl = $(BlogTpl());			
-			$('body').html(tpl);
-			this.bindLinks();
-			$(".page").fadeIn();
+
+			// Function used to generate and display blog page
+			var showBlogPage = _.bind(function(user) {
+				var tpl = $(BlogTpl({user: user}));			
+				$('body').html(tpl);
+				this.bindLinks();
+				$(".page").fadeIn();
+			}, this);
+
+			// Get connected user
+			this.withUser(_.bind(function(user) {
+				var tpl = $(BlogTpl({user: user}));			
+				$('body').html(tpl);
+				this.bindLinks();
+				$(".page").fadeIn();
+			}, this));
 		},
 
 
@@ -135,10 +164,12 @@ define([
 		*/
 		admin: function() {
 			console.log('[Router] -> admin');
-			var tpl = $(AdminTpl());			
-			$('body').html(tpl);
-			this.bindLinks();
-			$(".page").fadeIn();
+			this.withUser(_.bind(function(user) {
+				var tpl = $(AdminTpl({user: user}));			
+				$('body').html(tpl);
+				this.bindLinks();
+				$(".page").fadeIn();
+			}, this));
 		},
 
 
@@ -147,19 +178,22 @@ define([
 		*/
 		admin_users: function() {
 			console.log('[Router] -> admin users');
-			var tpl = $(AdminUsersTpl());			
-			$('body').html(tpl);
+			this.withUser(_.bind(function(user) {
+				var tpl = $(AdminUsersTpl({user: user}));			
+				$('body').html(tpl);
 
-			var self = this;
-			$.get('/api/users').done(function(data) {
-				var usersView = new UsersView({
-					el: ".users-list",
-					collection: new Backbone.Collection(data)
+				var self = this;
+				$.get('/api/users').done(function(data) {
+					var usersView = new UsersView({
+						el: ".users-list",
+						collection: new Backbone.Collection(data)
+					});
+					usersView.render();
+					self.bindLinks();
+					$(".page").fadeIn();
 				});
-				usersView.render();
-				self.bindLinks();
-				$(".page").fadeIn();
-			});
+			}, this));
+			
 		}
 
 	});
