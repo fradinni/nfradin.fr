@@ -26,7 +26,7 @@ requirejs([
 	'ejs',
 	'mongoose',
 	'utils/EJSCompiler'
-], function (os, fs, http, https, express, expressRoads, passport, passportGoogle, ejs, mongoose, EJSCompiler) {
+], function (os, fs, http, https, express, ExpressRoads, passport, passportGoogle, ejs, mongoose, EJSCompiler) {
 
 	console.log("==========================================");
 	console.log("=");
@@ -39,8 +39,8 @@ requirejs([
 	// var hskey = fs.readFileSync(__dirname + '/../security/nfradin-key.pem');
 	// var hscert = fs.readFileSync(__dirname + '/../security/nfradin-cert.pem');
 	// var https_options = {
-  //    key: hskey,
-  //    cert: hscert
+  	//    key: hskey,
+  	//    cert: hscert
 	// };
 
 
@@ -51,17 +51,6 @@ requirejs([
 	app.set('port', process.env.PORT || 8080);
 	app.use(express.compress());
 	app.use(express.cookieParser(cookieSecret));
-	/*
-	app.use(express.cookieSession({
-		key: "fradinni.sid",
-		secret: cookieSecret,
-		cookie: {
-			path: '/', 
-			httpOnly: true, 
-			maxAge: null
-		}
-	}));
-	*/
 	app.use(express.session({ 
 		key: 'fradinni.sid',
 		secret: cookieSecret 
@@ -88,14 +77,14 @@ requirejs([
 
 	  		// Extract openID
 	  		var openId = identifier.substring(identifier.indexOf('id=')+3);
+	  		var email = profile.emails[0].value;
+	  		var username = email.substring(0, email.indexOf('@'));
 
-	  		// Try to find user with current openId
-	  		User.findOne({openId: openId}, function(err, user) {
+	  		// Try to find user with current openId or email
+	  		User.findOne({ "$or": [{openId: openId}, {email: email}] }, function(err, user) {
 	  			if(!err && !user) {
 
 	  				// Create new user
-	  				var email = profile.emails[0].value;
-	  				var username = email.substring(0, email.indexOf('@'));
 	  				user = new User({
 	  					username: username,
 	  					email: email,
@@ -104,7 +93,7 @@ requirejs([
 	  					roles: ['USER']
 	  				});
 
-	  				// If user is me, gimme all rights ;)
+	  				// If user is me, set ADMIN rights
 	  				if(email == "fradinni@gmail.com") {
 	  					user.roles = ['ADMIN'];
 	  					user.activated = true;
@@ -116,7 +105,18 @@ requirejs([
 	  				});
 
 	  			} else {
-	  				done(err, user);
+
+	  				// If user already exists but openId has changed, update user
+	  				if(email == user.email && openId != user.openId) {
+	  					user.openId = openId;
+	  					user.identifier = identifier;
+	  					user.save(function(err) {
+	  						done(err, user);
+	  					});
+	  				} else {
+	  					done(err, user);
+	  				}
+
 	  			}
 	  		});
 	  	}
@@ -144,14 +144,13 @@ requirejs([
 		res.redirect('/blog');
 	});
 
-	 // {successRedirect: '/blog',failureRedirect: '/auth/google' }
-
 
 	//
 	// Connect to database
 	//
 	console.log("[Database] Connection to MongoHQ...");
 	mongoose.connect(process.env.MONGO_URL);
+
 
 	//
 	// Pre-compile ejs templates for client
@@ -161,6 +160,7 @@ requirejs([
 		__dirname + '/www/templates/',
 		__dirname + '/www/templates_compiled/'
 	);
+
 
 	//
 	// Set view folder
@@ -198,13 +198,13 @@ requirejs([
 	//
 	// Initialize Express Roads
 	//
-	expressRoads.initialize(app, {
+	ExpressRoads.initialize(app, {
 		baseDir: __dirname,
 		routesDir: './routes',
 		useAPI: true,
    		apiBaseDir: './routes/api',
-		debug: false,
-		authFunction: authFunction
+		authFunction: authFunction,
+		debug: true
 	}, function() {
 
 		//

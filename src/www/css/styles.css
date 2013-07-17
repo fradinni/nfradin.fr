@@ -275,7 +275,16 @@ footer a {
 }
 
 
-
+.ajax-loader {
+    background: url('/img/ajax-loader.gif');
+    background-repeat: no-repeat;
+    width: 220px;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    background-position: bottom center;
+    display: none;
+}
 
 
 

@@ -40,23 +40,31 @@ define(function(require) {
 	*/
 	var editor = function(req, res) {
 
-		var articleId = req.param('a');		
-		if(articleId == 'new') {
-			return res.render('editor.ejs', {article: new Article({text: "<h1>New article</h1><p>Some content</p>"})});
-		} else {
-			try {
-				new ObjectId(articleId);
-			} catch(e) {
-				res.send(500, e);
-			}
-			Article.findById(articleId, function(err, article) {
-				if(err || !article) {
-					return res.send(500, {error: 'Unable to find article with id: ' + articleId});
-				} else {
-					return res.send('editor.ejs', {article: article});
-				}
-			});
+		var articleId = req.param('a');	
+
+		if(!articleId) {
+			return res.send(500, {error: 'Missing parameters...'});
 		}
+		Category.find({}).sort('name').exec(function(err, categories) {
+			if(categories) {
+				if(articleId == 'new') {
+					return res.render('editor.ejs', {categories: categories, article: {title: 'New Article', text: "<h1>New article</h1><p>Some content</p>"}});
+				} else {
+					try {
+						new ObjectId(articleId);
+					} catch(e) {
+						res.send(500, e);
+					}
+					Article.findById(articleId, function(err, article) {
+						if(err || !article) {
+							return res.send(500, {error: 'Unable to find article with id: ' + articleId});
+						} else {
+							return res.send('editor.ejs', {categories: categories, article: article});
+						}
+					});
+				}
+			}
+		});
 	}
 
 
@@ -91,6 +99,18 @@ define(function(require) {
 				res.send(500, {error: 'Unable to retrieve categories !'});
 			} else {
 				res.render('admin_categories.ejs', {user: req.user, categories: categories});
+			}
+		});
+
+	}
+
+	var adminArticles = function(req, res) {
+
+		Article.find({}).sort('dateCreated').exec(function(err, articles) {
+			if(err) {
+				res.send(500, {error: 'Unable to retrieve articles !'});
+			} else {
+				res.render('admin_articles.ejs', {user: req.user, articles: articles});
 			}
 		});
 
@@ -141,8 +161,9 @@ define(function(require) {
 		{ path: '/admin', method: "GET", fn: admin, auth: true },
 		{ path: '/admin_users', method: "GET", fn: adminUsers, auth: true },
 		{ path: '/admin_categories', method: "GET", fn: adminCategories, auth: true },
+		{ path: '/admin_articles', method: "GET", fn: adminArticles, auth: true },
 
-		{ path: '/editor', method: "GET", fn: editor, auth: true },
+		{ path: '/editor', method: "GET", fn: editor, auth: true }
 	];
 
 });

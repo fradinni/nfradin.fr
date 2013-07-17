@@ -6,17 +6,14 @@
 	width: 100%;
 }
 
-.editor-page .content {
-	margin-top: 70px;
-	background-color: white;
-}
-
 .editor {
 	display: block;
-	margin-top: 20px;
+	margin: 20px 80px;
+	margin-top: 70px;
 }
 
 .save {
+	display: block;
 	margin: auto;
 	margin-top: 50px;
 	padding: 20px 40px;
@@ -24,11 +21,9 @@
 	width: 1024px;
 	
 	background-color: white;
-	text-align: center;
-}
+ 	text-align: center;
 
-.save a {
-	font-family: "aleobold";
+ 	font-family: "aleobold";
 	font-size: 20px;
 	color: black;
 }

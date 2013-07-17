@@ -11,11 +11,14 @@ define(function(require) {
 	* DB User Model
 	*/
 	var Article = new Schema({
+
 		author: {type: ObjectId, required: true, ref: 'User' },
 		category: {type: ObjectId, ref: 'Category', required: true},
-		title: {type: String, required: true },
+
+		title: {type: String, required: true, unique: true },
 		text: {type: String, required: true },
 		cover: String,
+
 		dateCreated: {type: Date, default: Date.now},
 		lastUpdated: {type: Date, default: Date.now}
 	});

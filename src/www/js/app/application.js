@@ -2,19 +2,25 @@ define([
 	'backbone',
 	'./views/UsersView',
 	'./views/CategoriesView',
+	'./views/ArticlesView',
+	'./views/EditorView',
+	'./views/BlogView',
 	'templates/index', 
 	'templates/blog', 
 	'templates/editor', 
 	'templates/admin',
 	'templates/admin_users',
-	'templates/admin_categories'
-], function(Backbone, UsersView, CategoriesView, IndexTpl, BlogTpl, EditorTpl, AdminTpl, AdminUsersTpl, AdminCategoriesTpl) {
+	'templates/admin_categories',
+	'templates/admin_articles'
+], function(Backbone, UsersView, CategoriesView, ArticlesView, EditorView, BlogView, IndexTpl, BlogTpl, EditorTpl, AdminTpl, AdminUsersTpl, AdminCategoriesTpl, AdminArticlesTpl) {
 
 	var Application = Backbone.Router.extend({
 
 		routes: {
+			"admin_articles": "admin_articles",
 			"admin_categories": "admin_categories",
 			"admin_users": "admin_users",
+			"editor": "editor",
 			"admin": "admin",
 			"blog": "blog",
 			"": "index"
@@ -46,6 +52,7 @@ define([
 			var silent = true;
 			if(document.location.href.indexOf('admin') != -1) silent = false;
 			if(document.location.href.indexOf('blog') != -1) silent = false;
+			if(document.location.href.indexOf('editor') != -1) silent = false;
 
 	    	// Start Backbone History
 			Backbone.history.start({
@@ -138,10 +145,21 @@ define([
 
 			// Get connected user
 			this.withUser(_.bind(function(user) {
-				var tpl = $(BlogTpl({user: user}));			
+				var tpl = $(BlogTpl({user: user}));	
 				$('body').html(tpl);
+
+				// Initlaize blog view
+				var blogView = new BlogView({
+					el: ".main-panel"
+				});
+
 				this.bindLinks();
-				$(".page").fadeIn();
+				$(".page").fadeIn(function() {
+					// Load articles
+					setTimeout(function() {
+						blogView.loadArticles();
+					}, 0);
+				});
 			}, this));
 		},
 
@@ -151,14 +169,17 @@ define([
 		*/
 		editor: function() {
 			console.log("[Router] -> editor");
-			var tpl = $(EditorTpl());			
-			$('body').html(tpl);
-			this.bindLinks();
-			$(".page").fadeIn(function() {
-				// Init editor
-				CKEDITOR.disableAutoInline = true;
-	    		CKEDITOR.inline( 'editor' );
-			});
+
+			this.withUser(_.bind(function(user) {
+				//var tpl = $(EditorTpl({user: user, article: new Backbone.Model()}));			
+				//$('body').html(tpl);
+
+				var editorView = new EditorView({
+					el: '.editor-page'
+				});
+				editorView.enhance();
+				this.bindLinks();
+			}, this));
 		},
 
 
@@ -212,6 +233,25 @@ define([
 						collection: new Backbone.Collection(data)
 					});
 					categoriesView.render();
+					self.bindLinks();
+					$(".page").fadeIn();
+				});
+			}, this));
+		},
+
+		admin_articles: function() {
+			console.log('[Router] -> admin articles');
+			this.withUser(_.bind(function(user) {
+				var tpl = $(AdminArticlesTpl({user: user}));			
+				$('body').html(tpl);
+
+				var self = this;
+				$.get('/api/articles').done(function(data) {
+					var articlesView = new ArticlesView({
+						el: ".articles-list",
+						collection: new Backbone.Collection(data)
+					});
+					articlesView.render();
 					self.bindLinks();
 					$(".page").fadeIn();
 				});

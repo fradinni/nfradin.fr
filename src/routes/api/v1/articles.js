@@ -15,7 +15,26 @@ define(function(require) {
 
 
 	var addArticle = function(req, res) {
-		
+
+		var title = req.param('title'),
+			text = req.param('text'),
+			category = req.param('category'),
+			author = req.user.id;
+
+		var article = new Article({
+			author: author,
+			category: category,
+			title: title,
+			text: text
+		});
+
+		article.save(function(err) {
+			if(err) {
+				return res.send(500, {error: 'Unable to save article: ' + err.err});
+			} else {
+				return res.send(200, article);
+			}
+		});
 	};
 
 
@@ -26,15 +45,17 @@ define(function(require) {
 	var articles = function(req, res) {
 
 		// Initiliaze query vars
-		var nbArticlePerPage = req.param('nbArticlePerPage') || 10,
-			page = req.param('page') || 1,
+		var nbArticlePerPage = req.param('nbArticlePerPage') || -1,
+			page = req.param('page') || 0,
 			category = req.param('category') || null;	
 
 		// Build db query
-		var query = Article.find().sort('-dateCreated');
+		var query = Article.find({}).sort('-dateCreated');
 
 		// If category is specified, filter results
-		query.where('category').equals(category);
+		if(category) {
+			query.where('category').equals(category);
+		}
 
 		// If current page is not first page, skip previous articles
 		if(page > 1) {
@@ -42,7 +63,9 @@ define(function(require) {
 		}
 
 		// Limit number of result to 1 page.
-		query.limit(nbArticlePerPage);
+		if(nbArticlePerPage > 0) {
+			query.limit(nbArticlePerPage);
+		}
 
 		// Execute query
 		query.exec(function(err, articles) {
@@ -52,7 +75,7 @@ define(function(require) {
 				res.send(articles);
 			}
 		});
-	}
+	};
 
 
 	/**
@@ -82,7 +105,7 @@ define(function(require) {
 	return [
 		{ path: '/articles', method: "GET", fn: articles },
 		{ path: '/articles/:id', method: "GET", fn: article },
-		{ path: '/articles', method: "POST", fn: addArticle }
+		{ path: '/articles', method: "POST", fn: addArticle, auth: true }
 	];
 
 });

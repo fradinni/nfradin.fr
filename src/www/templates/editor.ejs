@@ -11,22 +11,23 @@
 		</header>
 
 		<!-- Page content -->
-		<div class="content editor">
-			<!-- <textarea name="editor">&lt;p&gt;Initial value.&lt;/p&gt;</textarea> -->
-			<div id="editor" contenteditable="true" class="editable">
-			    <%- article.text %>
-			</div>
-			<script>
-			    // Turn off automatic editor creation first.
-			    CKEDITOR.editorConfig = function( config ) {
-    				config.language = 'fr';
-    				config.uiColor = '#AADC6E';
-				};
-			</script>
+		<div class="editor">
+			
+			<input type="text" id="title" name="title" style="width: 99%;" placeholder="Title" value="<%= article.title %>" />
+			
+			<select name="category" id="category">
+				<option value="null">- Select category -</option>
+				<% for(var index in categories) {
+					var category = categories[index];
+					%>
+					<option value="<%=category._id%>" <%= article.category == category._id ? 'selected'  : '' %>><%=category.name%></option>
+					<%
+				} %>
+			</select>
+
+			<textarea name="editor" id="editor"><%= article.text %></textarea>
 		</div>
 
-		<div class="save">
-			<a href="/editor?a=new" onclick="alert(CKEDITOR.instances.editor.getData());">Save</a>
-		</div>
+		<span class="save">Save</span>
 	</div>
 <% include layout/footer %>
