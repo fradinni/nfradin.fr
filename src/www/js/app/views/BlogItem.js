@@ -1,4 +1,4 @@
-define([
+﻿define([
 	'backbone',
 	'templates/articleItem'
 ], function(Backbone, ArticleItemTemplate) {

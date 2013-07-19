@@ -1,4 +1,4 @@
-define([
+﻿define([
 	'backbone',
 	'./ArticleItem'
 ], function(Backbone, ArticleItem) {

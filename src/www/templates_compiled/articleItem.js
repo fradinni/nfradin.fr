@@ -7,7 +7,7 @@ escape = escape || function (html){
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 };
-var __stack = { lineno: 1, input: "<td width=\"150\"><%=model.get('title')%></td>\n<td><%=model.get('text').substring(0, 30)+'...'%></td>", filename: "/Users/nicolas/Documents/GitPerso/nfradin.fr/src/www/templates/articleItem.ejs" };
+var __stack = { lineno: 1, input: "<td width=\"150\"><%=model.get('title')%></td>\n<td><%=model.get('text').substring(0, 30)+'...'%></td>", filename: "/Users/fradinni/Documents/GitPerso/nfradin.fr/src/www/templates/articleItem.ejs" };
 function rethrow(err, str, filename, lineno){
   var lines = str.split('\n')
     , start = Math.max(lineno - 3, 0)

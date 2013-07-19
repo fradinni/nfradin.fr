@@ -49,7 +49,7 @@ requirejs([
 	// Create new application
 	var app = express();
 	app.set('port', process.env.PORT || 8080);
-	app.use(express.compress());
+	//app.use(express.compress());
 	app.use(express.cookieParser(cookieSecret));
 	app.use(express.session({ 
 		key: 'fradinni.sid',

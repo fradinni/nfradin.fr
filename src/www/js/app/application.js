@@ -1,4 +1,4 @@
-define([
+﻿define([
 	'backbone',
 	'./views/UsersView',
 	'./views/CategoriesView',

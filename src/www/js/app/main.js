@@ -1,4 +1,4 @@
-/**
+﻿/**
 * Bootstrap
 */
 define(["backbone", "app/application"], function(Backbone, Application) {
